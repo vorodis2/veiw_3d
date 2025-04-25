@@ -1,0 +1,81 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title>src/visi3D/box</title>
+
+<script src='src/lib/jquery-1.11.3.js'></script>
+<script src='src/lib/tween.min.js'></script>
+
+<script src='src/libMy/divLib.js'></script>
+<script src='src/libMy/divLibPlus.js'></script>
+
+
+
+
+<script src='src/lib/three.min_158.js'></script>
+
+
+
+
+
+</head>
+<meta name="viewport" content="width=device-width,height=device-height,user-scalable=no user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+
+<script type="importmap">
+	{
+		"imports": {
+			"three": "./src/lib/tv156/three.module.js",
+			"three/addons/": "./src/lib/tv156/jsm/"
+		}
+	}
+</script>
+
+
+<script type="module">
+	import * as THREE from 'three';
+	window.THREE = THREE
+	import { Main } from './src/visi3D/box/_demoMain.js';
+	window.trace = window.console.log.bind(window.console);
+	
+	var main,dcmParam;
+	
+	trace("gg")
+	function sizeWindow () {
+		var w = document.documentElement.clientWidth;
+		var h = document.documentElement.clientHeight;
+			
+		if(main)main.sizeWindow(w,h);
+	}
+
+
+	function init(t){
+		trace("gg")
+		dcmParam = new DCM();
+		
+		main=new Main( function(s,p,p1){
+			sizeWindow()
+		})
+		
+		//
+		window.onresize = sizeWindow;
+		sizeWindow();
+	}
+
+	
+
+	document.addEventListener("DOMContentLoaded", function() {
+		init();//строитель		
+	});
+
+
+</script>	
+
+
+
+
+<body >
+
+</body></html>
+
+
+
