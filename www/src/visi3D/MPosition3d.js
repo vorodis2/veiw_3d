@@ -8,7 +8,15 @@ site: vorodis2
 mail: vorodis2@gmail.com
 skype: vorodis2
 phone: +380951026557 
-website: vorodis2.com
+website: vorodis2.info
+
+
+
+ssssssssssssssssssssss
+ddddddddddddddddd
+ddddddddddddddddddddddddddddddddddddddddddddddddddddd
+
+
 */
 
 
@@ -80,22 +88,29 @@ export default function MPosition3d (_parent, _content2d, _div) {
     this.tween2.easing( TWEEN.Easing.Quintic.Out )
 
     
-
+    let b=false;
 	this.stageMoveNew = function (e) {
 		
-		
+
 		if(self.boolDrag==false)return
 		if (self._pause == true) return;
 		if (self.drag == false) return;
 		
 		//if(self.boolMouseRight==false )
+
+		if(self.boolMouseRight)b=false;
+
+
 		if(e && e.buttons && e.buttons==2 && self.boolMouseRight==false)return
-		
+
+
+
 
 		if (e && self.isDragPan && isMovePan) {
 			handleMouseMovePan(e);
 			return;
 		}
+
 		if(e.touches==undefined){
 			if (self.isRotateScene && e.data.originalEvent.shiftKey) {
 				self.parent.scene.rotation.y = sceneRotationY + (e.clientX - self.point1.x) * 0.01;
@@ -135,6 +150,8 @@ export default function MPosition3d (_parent, _content2d, _div) {
 				}				
 			}
 		}else{
+
+
 			if(e.touches.length==1){
 
 				if(self.boolDrahXZ){
@@ -158,7 +175,6 @@ export default function MPosition3d (_parent, _content2d, _div) {
 					sagZ=yy
 					
 					self.pScane.setV3d(self.parent._rotationX-xx,self.parent._rotationZ-yy,0)
-
 					self.parent.rotationX=xx;				
 					self.parent.rotationZ=yy;
 					//self.tween1.to({rotationX:xx,rotationZ:yy},self.pTime).start(); 
@@ -173,26 +189,29 @@ export default function MPosition3d (_parent, _content2d, _div) {
 					self.pT1.x=e.touches[1].clientX
 					self.pT1.y=e.touches[1].clientY
 
-					
 
 
 					if(self.distTach==0){
-						self.distTach=calc.getDistance(self.pT,self.pT1)
+
+						self.distTach=this.getDistance(self.pT,self.pT1)
+					
 						sahDist=0;
+						
 						panStart.set(Math.round(self.pT.x*1), Math.round(self.pT.y*1));
 						
 					}else{
-						nnnDist=calc.getDistance(self.pT, self.pT1)
+					
+						nnnDist=this.getDistance(self.pT, self.pT1)
 						sahDist=nnnDist-self.distTach
 						self.distTach=nnnDist
 					}
-
+				
 					
 					
 					www = self.parent._zume - sahDist*(self.parent._zume/100);
 					self.zumNEW(www)
 					handleMouseMovePan(null, Math.round(self.pT.x*1), Math.round(self.pT.y*1))					
-
+					
 				}
 			}
 
@@ -205,6 +224,25 @@ export default function MPosition3d (_parent, _content2d, _div) {
 
 		
 	};
+
+	this.getDistance = function (p1, p2) {
+		if (p1 == undefined) {
+			return 0;
+		}
+		if (p2 == undefined) {
+			p2 = rezNull;
+		}
+		p2 = p2 || rezNull;
+
+		//if(p1.z &&p.z)return Math.sqrt(Math.pow((p1.x - p2.x), 2) + Math.pow((p1.y - p2.y), 2)+ Math.pow((p1.z - p2.z), 3));
+		
+		
+		return Math.sqrt(Math.pow((p1.x - p2.x), 2) + Math.pow((p1.y - p2.y), 2));
+	};
+
+
+
+
 	this.pT = new THREE.Vector2(0, 0);
 	this.pT1 = new THREE.Vector2(0, 0);
 	var sahDist=0
@@ -232,16 +270,19 @@ export default function MPosition3d (_parent, _content2d, _div) {
 		self.parent.intRend = 1;
 	};
 
+
+
+	console.warn("eeeeeeeeeeeeeeeeeeewertrdjtyfkhlk.k,mnbsasertyukileeeeeeeeeeeeeeeeee")
 	var sagX,sagZ;
 
 	var isMovePan = false;
 	this.distTach=0
 	this.mouseDown = function (e) {
-		
+	
 		if (self._pause == true) return;
 		if (self.drag == false) return;
 		if(e && e.buttons && e.buttons==2 && self.boolMouseRight==false)return
-		
+
 		isMovePan = false;
 		self.boolDrag=true
 

@@ -48,9 +48,34 @@ export class Main{
 		this.dContv3 = new DCont(this.dCont)
 		this.dContBox = new DCont(this.dCont)
 		this.dCont1 = new DCont(this.dCont)	
-		trace("ffff")	
+		let ll
+		if(dcmParam.mobile){			
+			ll=new DLabel(this.dCont, dcmParam.otstup,dcmParam.otstup,"This is a phone. The computer has more settings!!")
+			ll.color='#555555'
+			ll.width=888;
+			ll.div.style.whiteSpace = 'pre-line';
+		}		
+
+		let a=[]
+		this.set1 = function (s) {
+		/*	if(!dcmParam.mobile)return	
+
+			a.push(s);
+			if(s=='clear'){
+				a.length=0
+			}
+			let ss=''
+			for (var i = a.length - 1; i >= 0; i--) {
+				
+				ss+=a[i]+"\n";
+			}
+
+			ll.text=ss*/
+		}
+		window.demoM=this
 
 
+			
 
 
 		//создание сцены
@@ -139,10 +164,16 @@ export class Main{
 		    this.plus(200, 1, 1, dcmParam.color,dcmParam.color1)
 		    this.plus(100, 0, 1, "#f64601", "#000000")	
 		    this.mvBox.prp=256;
+
+
 		    this.mvBox.mvbZumePlus.active=true
+
+
 
 		    visi3D.position3d.pScane.material.color=new THREE.Color("#f64601")
 		    visi3D.position3d.pScane.material.opacity=0.95
+
+
 
 
 		    this.mvBox=this.array[1];
@@ -163,7 +194,13 @@ export class Main{
 	        }
 
 	      	if(localS11.object["dragVisi3d1"]){
+	      		let s=JSON.stringify(localS11.object["dragVisi3d1"])
+	      		trace(">>",s)
             	this.visi3D.setObj(localS11.object["dragVisi3d1"])            
+        	}else{
+        		let ss='{"xVerh":416.44026843469635,"yVerh":30.51794502711853,"zVerh":-88.33901206551239,"rotationX":0.27999999999999997,"rotationZ":0.33999999999999997,"zume":1743.5680963268217,"fov":45}'
+        		let o=JSON.parse(ss)
+        		this.visi3D.setObj(o)    
         	}
 
         	this.tick()
@@ -503,6 +540,18 @@ export class Menu{
 		dP1.okrug=1000
 		dP1.typeNotArray=['zume']
 
+		if(dcmParam.mobile){
+			this.wind.x=9999;
+			this.wind1.y=9999;
+			/*let ll=new DLabel(this.dCont, dcmParam.otstup,dcmParam.otstup,"This is a phone. The computer has more settings!!")
+			ll.color='#555555'
+			ll.width=888;*/
+
+
+		}
+
+
+
 		this.box=undefined
 		this.setBox=function(box){
 			this.box=box
@@ -538,6 +587,8 @@ export class Menu{
 
 	}
 }
+
+
 
 
 

@@ -104,7 +104,7 @@ export class  MVBox{
             return this.compToHexArray(this.hexDec(cc),uu*vv)   
         }
 
-
+        trace("==",dcmParam)
         
         this._colorLine=this.getColor(this._color,this.prp)
         this._colorText=this.getColor(this._color,this.prp)
@@ -113,24 +113,32 @@ export class  MVBox{
         this.contHTML.style.top = '0px';
         this.contHTML.style.left = '0px';
         this.contHTML.style.pointerEvents = 'none';
-        this.visi3D = new MVisi3D(this.contHTML, null, false, true, true, true, true);
+        this.visi3D = new MVisi3D(this.contHTML, null, dcmParam.mobile, true, true, true, true);
         this.visi3D.yes3d = true;
         this.content3d = new THREE.Object3D();
 
 
         let dCont=new DCont(this.contHTML)
 
-       /* let panel=new DPanel(dCont)
-        panel.wh=11*/
+
+
+
+
+
+
 
         let r1=100;
         this.content3d.scale.set(r1,r1,r1)
     	this.visi3D.groupObject.add(this.content3d) 
 
-        //this.visi3D.groupObject.position.z=-100
+
 
         this.content3d1 = new THREE.Object3D();
         this.visi3D.groupObject.add(this.content3d1) 
+
+
+
+
 
         this.setObjV3D = function(oSp){
             this.sceneSB = new SceneSB(this.visi3D);        
@@ -143,6 +151,10 @@ export class  MVBox{
                 }
             } 
             this.dddddv3()
+
+
+
+
         }
 
 
@@ -191,6 +203,7 @@ export class  MVBox{
 
                 if(s=="down"){
                     self.visi3D.event3DArr.naCont=true
+                    
                     self.visi3D.event3DArr.mousedown(p,p3)
                     if(self.fun){
                         self.fun("down", p,p1)
@@ -620,11 +633,31 @@ export class  MVBox{
         ////////////////////////////////
 
 
+
+        //великая грабля с событиями 
+        this.touchmove=function(e){                    
+            e.preventDefault();
+            self.vGlaf.mousemove(e);
+            dcmParam.mousemove(e)
+            e.stopPropagation();
+        } 
+
         this.vGlaf
         this.setVisi3D = function(vGlaf){
             this.vGlaf=vGlaf;
             this.vGlaf.arrFunDrag.push(this.funDrag);
             this.vGlaf.event3DArr.addFun(this.tFun)
+
+
+
+            if(dcmParam.mobile==true){
+
+                window.addEventListener('touchmove', this.touchmove, { passive: false, capture: true });           
+                this.vGlaf.position3d.div.removeEventListener('touchmove', visi3D.mousemove);
+                document.removeEventListener('touchmove', dcmParam.mousemove);
+            
+            }
+
         }
 
 
